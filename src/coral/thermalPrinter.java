@@ -5,17 +5,10 @@
  */
 package coral;
 
-import java.sql.*;
-
 /**
  *
  * @author essa.shomali
  */
-public class Coral {
-
-    public static void main(String[] args) {
-        
-            creditUnion.creditU();              // calls creditUnion class
-    }
+public class thermalPrinter {
     
 }
