@@ -15,7 +15,16 @@ public class Coral {
 
     public static void main(String[] args) {
         
-            creditUnion.creditU();              // calls creditUnion class
+           
+           creditUnion.creditU();              // calls creditUnion class
+           
+           laserPrinter.laserP();
+           
+           productList.product();
+           
+           thermalPrinter.thermalP();
+           
+           licenseList.license();
     }
     
 }

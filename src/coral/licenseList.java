@@ -6,20 +6,19 @@
 package coral;
 
 import java.sql.*;
-
 /**
  *
  * @author essa.shomali
  */
-public class laserPrinter {
+public class licenseList {
     
-        public static void laserP(){
+    public static void license(){
         
         try {
             Class.forName("com.mysql.jdbc.Driver");
             java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/access","root","5755Troy!");
             
-            String query = "SELECT * from laser";
+            String query = "SELECT * from licenses";
             
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(query);
@@ -27,12 +26,13 @@ public class laserPrinter {
             while(rs.next()) { 
               
               int cuID = rs.getInt("cuID");
-              String location = rs.getString("Location");
+              int productID = rs.getInt("productID");
+              Date licenseChange = rs.getDate("licenseChange");
                 //Date dateCreated = rs.getDate("date_created");
                 //boolean isAdmin = rs.getBoolean("is_admin");
                 //int numPoints = rs.getInt("num_points");
                 //System.out.format("%s, %s\n", cuID, cuName);
-            System.out.format("%s, %s\n", cuID, location);
+            System.out.format("%s, %s, %s\n", cuID, productID, licenseChange);
            //System.out.println(rs.getInt(1)+" "+rs.getString(2));
             }
             con.close();

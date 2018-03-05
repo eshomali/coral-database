@@ -32,7 +32,6 @@ public class creditUnion {
                 //boolean isAdmin = rs.getBoolean("is_admin");
                 //int numPoints = rs.getInt("num_points");
                 //System.out.format("%s, %s\n", cuID, cuName);
-            //con.close();
             System.out.format("%s, %s\n", cuID, cuName);
            //System.out.println(rs.getInt(1)+" "+rs.getString(2));
             }
