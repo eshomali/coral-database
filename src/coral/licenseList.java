@@ -12,13 +12,13 @@ import java.sql.*;
  */
 public class licenseList {
     
-    public static void license(){
-        
+    public static void license(String licenseVar){
+       
         try {
             Class.forName("com.mysql.jdbc.Driver");
             java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/access","root","5755Troy!");
             
-            String query = "SELECT * from licenses";
+            String query = String.format("SELECT * from %s", licenseVar);
             
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(query);
