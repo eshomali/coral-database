@@ -5,7 +5,7 @@
  */
 package coral;
 
-import static coral.Coral.main;
+//import static coral.Coral.main;
 import static coral.Model.main;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,7 +36,7 @@ public class Model extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableView = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Credit_Union", "Laser", "Thermal", "Products", "Licenses" }));
 

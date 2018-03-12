@@ -5,6 +5,9 @@
  */
 package coral;
 
+import java.sql.*;
+import javax.swing.DefaultComboBoxModel;
+
 /**
  *
  * @author erin.rourke
@@ -35,7 +38,20 @@ public class ComboBoxModel extends javax.swing.JFrame {
 
         jLabel1.setText("Select a credit union:");
 
-        comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Statement st = Connect.go();
+        ResultSet rs = null;
+        try{
+            rs = st.executeQuery("SELECT cuName FROM credit_union");
+        } catch (Exception e) { System.out.println(e); }
+        String[] box = Coral.to1DStrArray(rs);
+        DefaultComboBoxModel model = new DefaultComboBoxModel(box);
+        comboBox.setEditable(true);
+        comboBox.setModel(model);
+        comboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxActionPerformed(evt);
+            }
+        });
 
         button.setText("GO!");
         button.addActionListener(new java.awt.event.ActionListener() {
@@ -69,7 +85,7 @@ public class ComboBoxModel extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -78,6 +94,10 @@ public class ComboBoxModel extends javax.swing.JFrame {
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonActionPerformed
+
+    private void comboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxActionPerformed
 
     /**
      * @param args the command line arguments

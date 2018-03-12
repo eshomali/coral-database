@@ -40,31 +40,5 @@ public class creditUnion {
             con.close();
         } catch(Exception e) { System.out.println(e); }
     }
-    
-    /*
-    public static void popComboBox(JComboBox comboBox){
-        String[] cuNames = null;
-        int index = 0;
-        int rowNum = 0;
-        Statement st = Connect.go();
-        ResultSet rs;
-        
-        try {
-            
-            rs = st.executeQuery("SELECT cuName FROM credit_union;");
-            rowNum = Coral.getRowNum(rs);
-            
-            cuNames = new String[rowNum-1];
-            
-            for(int i = 0; i < rowNum; i++){
-                cuNames[index] = rs.getString("cuName");
-            }
-
-        } catch (Exception e) { System.out.println(e); }
-
-        DefaultComboBoxModel model = new DefaultComboBoxModel(cuNames);
-        comboBox.setModel(model);
-    }
-    */
 }
 

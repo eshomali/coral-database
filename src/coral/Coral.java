@@ -20,39 +20,63 @@ public class Coral {
     //--------------------------------------------------------------------------
     public static int getRowNum(ResultSet rs) {
         
+        //Initialize variables
         int rowNum = 0;
-        int currentRow = 0;
+
         try {
+            //Iterate through the result set
             while(rs.next()){
-                currentRow = rs.getRow();
-                rowNum =+ currentRow;
+                //Saves the current row into rowNum
+                rowNum =+ rs.getRow();
             }
+            //Once the while loop has been completed, rowNum will contain
+            //the last row number (which is the same as the number of rows)
         } catch (Exception e) { System.out.println(e); }
         
         return rowNum;
     }
     
     //--------------------------------------------------------------------------
-    //  to1DStrArray()
-    //  |   Returns a string array containing the elements of rs
-    //  |   EXCEPTION: rs must have ONLY ONE 
+    //  getColNum()
+    //  |   Returns the number of columns in the result set
     //--------------------------------------------------------------------------
-    public static String[] to1DStrArray(ResultSet rs) {
-        int i = 0;
-        int rowNum = 0;
+    public static int getColNum(ResultSet rs) {
+        
+        //Initialize variables
+        int x = 0;
         
         try {
-            
-            rowNum = Coral.getRowNum(rs);
-            
+            //Retrieve the column count
+            x = rs.getMetaData().getColumnCount();
         } catch (Exception e) { System.out.println(e); }
         
+        return x;
+    }
+    
+    //--------------------------------------------------------------------------
+    //  to1DStrArray()
+    //  |   Returns a string array containing the elements of the result set
+    //  |   obtained by executing the query... 
+    //  |   |   SELECT  colName  FROM  tableName
+    //--------------------------------------------------------------------------
+    public static String[] to1DStrArray(ResultSet rs) {
+        
+        //Initialize variables
+        int rowNum = Coral.getRowNum(rs);
+        int index = 0;
         String[] output = new String[rowNum];
         
         try {
-            while(rs.next()) {
-                output[i] = rs.getString(1);
-                i++;
+            //Set the result set cursor to the first row
+            rs.absolute(0);
+            //Iterate through the result set
+            while(rs.next()){
+                //Retrieve the value from the result set and store it into the
+                //output array
+                output[index] = rs.getString(1);
+                //Increment the index so for the next row it will save the 
+                //value into the next available space in output[]
+                index++;
             }
         } catch (Exception e) { System.out.println(e); }
         
