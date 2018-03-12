@@ -18,13 +18,13 @@ public class Coral {
            
            creditUnion.creditU("credit_union");              // calls creditUnion class
            
-           laserPrinter.laserP("laser");
+        //   laserPrinter.laserP("laser");
            
-           productList.product("products");
+        //   productList.product("products");
            
-           thermalPrinter.thermalP("thermal");
+        //   thermalPrinter.thermalP("thermal");
            
-           licenseList.license("licenses");
+        //   licenseList.license("licenses");
     }
     
 }

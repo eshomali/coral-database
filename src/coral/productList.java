@@ -1,20 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package coral;
 
 import javax.swing.JTable;
 import java.sql.*;
-
-/**
- *
- * @author essa.shomali
- */
-
-
-
 
 public class productList {
     
@@ -23,21 +11,10 @@ public class productList {
         int rowCount = 0;
         
         try {
-            /*
-            Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/access","root","5755Troy!");
-            
-            
-            
-            Statement st = con.createStatement();
-            */
-            String query = String.format("SELECT * from %s", productVar);
-            
+            String query = String.format("SELECT * from %s", productVar);    
             Statement st = Connect.go();
-            
             ResultSet rs = st.executeQuery(query);
-            
-            
+
             while(rs.next()) {  
             //------------------------------------------------------------------
             //  Format the values into the JTable
