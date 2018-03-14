@@ -5,9 +5,9 @@
  */
 package coral;
 
-import static coral.Coral.main;
 import static coral.Model.main;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
+import javax.swing.JTable;
 
 /**
  *
@@ -15,9 +15,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Model extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Model
-     */
     public Model() {
         initComponents();
     }
@@ -31,19 +28,19 @@ public class Model extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableView = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Credit_Union", "Laser", "Thermal", "Products", "Licenses" }));
-
         jButton1.setText("Go");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Credit Union", "Laser", "Thermal", "Products", "Licenses" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jComboBox1ActionPerformed(evt);
             }
         });
 
@@ -69,30 +66,31 @@ public class Model extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(15, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(47, 47, 47)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(72, 72, 72))
+                .addGap(79, 79, 79))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addGap(33, 33, 33)
+                .addGap(40, 40, 40)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jComboBox1.getAccessibleContext().setAccessibleDescription("");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        
+        int cuidVar = 2;
+        boolean selAll = false;
         String[] table = new String[5];
         table[0] = "credit_union";
         table[1] = "laser";
@@ -102,7 +100,10 @@ public class Model extends javax.swing.JFrame {
         
         int index = jComboBox1.getSelectedIndex();
         
-        if (index == 0) creditUnion.creditU(table[0]); 
+        if (index == 0){ 
+            DefaultTableModel model = new DefaultTableModel(1139 , 55);
+            tableView.setModel(model);
+            creditUnion.creditU(table[0], cuidVar, selAll, tableView); }
         if (index == 1) laserPrinter.laserP(table[1]);
         if (index == 2) thermalPrinter.thermalP(table[2]);
         if (index == 3){
@@ -110,9 +111,8 @@ public class Model extends javax.swing.JFrame {
             tableView.setModel(model);
             productList.product(table[3], tableView);
         }
-        if (index == 4) licenseList.license(table[4]);
-      
-    }//GEN-LAST:event_jButton1ActionPerformed
+       // if (index == 4) licenseList.license(table[4]);
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,7 +140,22 @@ public class Model extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Model.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Model.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Model.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Model.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Model.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
