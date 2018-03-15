@@ -1,3 +1,8 @@
+//------------------------------------------------------------------------------
+//  productList.java
+//  |   This class represents the products table in the MySQL database.
+//------------------------------------------------------------------------------
+
 
 package coral;
 
@@ -21,8 +26,8 @@ public class productList {
             //------------------------------------------------------------------
             int rowNum = rs.getRow();
             
-            table.setValueAt(rs.getInt("productID"), rowNum-1, 0);
-            table.setValueAt(rs.getString("productType"), rowNum-1, 1);
+            //table.setValueAt(rs.getInt("productID"), rowNum-1, 0);
+              table.setValueAt(rs.getString("productType"), rowNum-1, 1);
             
             /*
             //------------------------------------------------------------------
@@ -51,23 +56,48 @@ public class productList {
     }
     
     //--------------------------------------------------------------------------
-    //  Updates information in the products table where...
-    //      data = the new product name
-    //      r = the productID of the product that needs to be updated
+    //  update()
+    //  |   Updates information in the products table where...
+    //  |      data = the new product name
+    //  |      r = the productID of the product that needs to be updated
     //--------------------------------------------------------------------------
-    public void update(Object data, int r){
+    public static void update(Object data, int r){
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/access","root","5755Troy!");
-            
-            Statement st = con.createStatement();
+            Statement st = Connect.go();
             st.executeUpdate(
                     "UPDATE products SET productType = '" + data + 
                             "' WHERE productID = " + r + ";"
             );
-            
-            con.close();
-            
         } catch (Exception e) { System.out.println(e); }
+        finally {
+            Connect.close();
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    //  newRecord()
+    //  |   Creates a new record in the products table where the name of the 
+    //  |   product is newProduct. A productID is not necessary because the table 
+    //  |   is auto-incremented.
+    //--------------------------------------------------------------------------
+    
+    public static void newRecord(String newProduct){
+        try { 
+            Statement st = Connect.go();
+            st.executeUpdate(
+                    "INSERT INTO products(productType) VALUES ('" + 
+                            newProduct + "');"
+            );
+            
+        } catch(Exception e) { System.out.println(e); }
+        finally {
+            Connect.close();
+        }
+    }
+    
+    public static void deleteRecord() {
+        try {
+        
+        } catch(Exception e) { System.out.println(e); }
     }
 }

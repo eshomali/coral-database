@@ -3,6 +3,8 @@
 //  |   This class is used to create or close the connection to the MySQL 
 //  |   database. The output is a statement that can be used to execute 
 //  |   queries.
+//  |   REMEMBER: Call the close() method once you are finished with the 
+//  |   connection you created using the go() method.
 //------------------------------------------------------------------------------
 
 
@@ -21,7 +23,8 @@ public class Connect {
         
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/access","root","5755Troy!");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"
+                    + "access","root","5755Troy!");
             
             st = con.createStatement();
         }catch(Exception e) { System.out.println(e); };

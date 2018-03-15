@@ -108,11 +108,8 @@ public class UpdateModel extends javax.swing.JFrame {
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
         int num = Integer.parseInt(numField.getText());
-        String product = productField.getText();
-        
-        productList products = new productList();
-        
-        products.update(product, num);
+        String product = productField.getText();        
+        productList.update(product, num);
     }//GEN-LAST:event_buttonActionPerformed
 
     private void numFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numFieldActionPerformed
