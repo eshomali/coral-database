@@ -19,8 +19,7 @@ public class Coral {
     //  |   Returns the number of rows in the result set
     //--------------------------------------------------------------------------
     public static int getRowNum(ResultSet rs) {
-        
-        //Initialize variables
+
         int rowNum = 0;
 
         try {
@@ -34,6 +33,7 @@ public class Coral {
         } catch (Exception e) { System.out.println(e); }
         
         return rowNum;
+
     }
     
     //--------------------------------------------------------------------------
