@@ -5,6 +5,10 @@
  */
 package coral;
 
+import java.sql.*;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author erin.rourke
@@ -27,15 +31,30 @@ public class ComboBoxModel extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        titleLabel = new javax.swing.JLabel();
         comboBox = new javax.swing.JComboBox<>();
         button = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableView = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Select a credit union:");
+        titleLabel.setText("Select a credit union:");
 
-        comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Statement st = Connect.go();
+        ResultSet rs = null;
+        try{
+            rs = st.executeQuery("SELECT cuName FROM credit_union");
+        } catch (Exception e) { System.out.println(e); }
+        String[] box = Coral.to1DStrArray(rs);
+        DefaultComboBoxModel model = new DefaultComboBoxModel(box);
+        comboBox.setEditable(true);
+        comboBox.setModel(model);
+        comboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxActionPerformed(evt);
+            }
+        });
 
         button.setText("GO!");
         button.addActionListener(new java.awt.event.ActionListener() {
@@ -43,6 +62,19 @@ public class ComboBoxModel extends javax.swing.JFrame {
                 buttonActionPerformed(evt);
             }
         });
+
+        tableView.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tableView);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -52,32 +84,92 @@ public class ComboBoxModel extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 198, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(comboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(comboBox, 0, 348, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(button)))
+                        .addComponent(button))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(titleLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
-        // TODO add your handling code here:
+        
+        //---Variables----------------------------------------------------------
+        String input;  //input from the comboBox (selected by the user)
+        int cuidVar = 0;    //cuID of the credit union selected by the user
+        boolean selAll = false; //unneeded as of yet
+        //----------------------------------------------------------------------
+        
+        /*  array of possible combobox index meanings
+        String[] table = new String[5];
+        table[0] = "credit_union";
+        table[1] = "laser";
+        table[2] = "thermal";
+        table[3] = "products";
+        table[4] = "licenses";
+        */
+        
+        //get input from comboBox
+        input = (comboBox.getSelectedItem()).toString();
+
+        //determine what credit union has been selected
+        try {
+            
+            Statement st = Connect.go();
+            ResultSet rs = st.executeQuery("SELECT cuID FROM credit_union "
+                    + "WHERE cuName = '" + input + "'");
+            rs.first();
+            cuidVar = rs.getInt("cuID");
+            
+            Connect.close();
+        } catch (Exception e) { System.out.println(e); }
+        
+        
+        //set up the table
+        DefaultTableModel model = new DefaultTableModel(1, 55);
+        tableView.setModel(model);
+        
+        //call creditU() to populate the table
+        creditUnion.creditU("", cuidVar, selAll, tableView);
+        
+        
+        /*  dealing with comboBox input for various options
+        if (index == 0){ 
+            DefaultTableModel model = new DefaultTableModel(1139 , 55);
+            tableView.setModel(model);
+            creditUnion.creditU(table[0], cuidVar, selAll, tableView); }
+        if (index == 1) laserPrinter.laserP(table[1]);
+        if (index == 2) thermalPrinter.thermalP(table[2]);
+        if (index == 3){
+            DefaultTableModel model = new DefaultTableModel(19 , 2);
+            tableView.setModel(model);
+            productList.product(table[3], tableView);
+        }
+        */
     }//GEN-LAST:event_buttonActionPerformed
+
+    private void comboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,6 +209,8 @@ public class ComboBoxModel extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button;
     private javax.swing.JComboBox<String> comboBox;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tableView;
+    private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }
