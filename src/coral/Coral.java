@@ -24,6 +24,7 @@ public class Coral {
 
         try {
             //Iterate through the result set
+            rs.first();
             while(rs.next()){
                 //Saves the current row into rowNum
                 rowNum =+ rs.getRow();

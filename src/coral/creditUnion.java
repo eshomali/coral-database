@@ -27,9 +27,8 @@ public class creditUnion {
         
         String[] cu = new String[55];
     //    String[] cuidJ = new String[55];
-        int rowCount = 0;
-        int i = 0;
-        
+        int rowCount = 0; 
+       
         try {
             Class.forName("com.mysql.jdbc.Driver");
             java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/access","root","5755Troy!");
@@ -41,8 +40,10 @@ public class creditUnion {
             ResultSet rs = st.executeQuery(querySel + queryID); //selects specified stuff
             //ResultSet rs = st.executeQuery(querySel); //selects all
             
-            while(rs.next()){ 
-    
+            
+            
+            while(rs.next()){
+ 
             int rowNum = rs.getRow();
 
             String cuID = Integer.toString(rs.getInt("cuID"));
@@ -380,63 +381,6 @@ public class creditUnion {
 
             System.out.format("%s\n", rowCount);
             con.close();
-        } catch(Exception e) { System.out.println(e); }
-      
+        } catch(Exception e) { System.out.println(e); }    
     }
-
-    
-    /*
-    public static void popComboBox(JComboBox comboBox){
-        String[] cuNames = null;
-        int index = 0;
-        int rowNum = 0;
-        Statement st = Connect.go();
-        ResultSet rs;
-        
-        try {
-            
-            rs = st.executeQuery("SELECT cuName FROM credit_union;");
-            rowNum = Coral.getRowNum(rs);
-            
-            cuNames = new String[rowNum-1];
-            
-            for(int i = 0; i < rowNum; i++){
-                cuNames[index] = rs.getString("cuName");
-            }
-
-        } catch (Exception e) { System.out.println(e); }
-
-        DefaultComboBoxModel model = new DefaultComboBoxModel(cuNames);
-        comboBox.setModel(model);
-    }
-
-    
-    /*
-    public static void popComboBox(JComboBox comboBox){
-        String[] cuNames = null;
-        int index = 0;
-        int rowNum = 0;
-        Statement st = Connect.go();
-        ResultSet rs;
-        
-        try {
-            
-            rs = st.executeQuery("SELECT cuName FROM credit_union;");
-            rowNum = Coral.getRowNum(rs);
-            
-            cuNames = new String[rowNum-1];
-            
-            for(int i = 0; i < rowNum; i++){
-                cuNames[index] = rs.getString("cuName");
-            }
-
-        } catch (Exception e) { System.out.println(e); }
-
-        DefaultComboBoxModel model = new DefaultComboBoxModel(cuNames);
-        comboBox.setModel(model);
-    }
-
-    */
-
 }
-

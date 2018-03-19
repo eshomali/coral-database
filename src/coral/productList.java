@@ -26,8 +26,8 @@ public class productList {
             //------------------------------------------------------------------
             int rowNum = rs.getRow();
             
-            //table.setValueAt(rs.getInt("productID"), rowNum-1, 0);
-              table.setValueAt(rs.getString("productType"), rowNum-1, 1);
+            table.setValueAt(rs.getInt("productID"), rowNum-1, 0);
+            table.setValueAt(rs.getString("productType"), rowNum-1, 1);
             
             /*
             //------------------------------------------------------------------
