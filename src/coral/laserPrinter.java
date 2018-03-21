@@ -29,19 +29,25 @@ public class laserPrinter {
     public static void laserP(int cuidVar, JTable table){
         
         //---Variables----------------------------------------------------------
-        int rowCount = 0;
         String[] las = new String[COLNUM];
+        String[] columnNames = new String[COLNUM];
         //----------------------------------------------------------------------
         
         try {
-            //Create the result set
+            //Create the result set and its meta data
             Statement st = Connect.go();
             ResultSet rs = st.executeQuery("SELECT * FROM laser "
                     + "WHERE cuID = " + cuidVar);
-            rowCount = Coral.getRowNum(rs);
+            ResultSetMetaData rsmd = rs.getMetaData();
+            
+            //Determine the column names
+            for(int i = 0; i < COLNUM; i++){
+                columnNames[i] = rsmd.getColumnName(i+1);
+            }
             
             //Set up the table model
             DefaultTableModel model = new DefaultTableModel(0, COLNUM);
+            model.setColumnIdentifiers(columnNames);
             table.setModel(model);
             
             //Start at the beginning of the result set
@@ -157,13 +163,17 @@ public class laserPrinter {
                 las[100] = rs.getString("other5_tray");
                 las[101] = rs.getString("other5_filename");
 
-                //Add this record to the database
+                //Add this record to the table
                 model.addRow(las);
                 
                 //Set up the column resizing
                 if (table.getPreferredSize().width < table.getParent().getWidth()) table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
                 else table.setAutoResizeMode(table.AUTO_RESIZE_OFF);
             }
+            
+            //Close the connection
+            Connect.close();
+            
         } catch (Exception e) { System.out.println(e); }
         
     }

@@ -31,19 +31,24 @@ public class thermalPrinter {
         
         //---Variables----------------------------------------------------------
         String[] th = new String[COLNUM];
-        int rowCount = 0;
+        String[] columnNames = new String[COLNUM];
         //----------------------------------------------------------------------
         
         try {
-            
-            //Create the result set
+            //Create the result set and its metadata
             Statement st = Connect.go();
             ResultSet rs = st.executeQuery("SELECT * FROM thermal "
                     + "WHERE cuID = " + cuidVar);
-            //rowCount = Coral.getRowNum(rs);
+            ResultSetMetaData rsmd = rs.getMetaData();
+            
+            //Determine the column names
+            for(int i = 0; i < COLNUM; i++){
+                columnNames[i] = rsmd.getColumnName(i+1);
+            }
             
             //Set up the table model
             DefaultTableModel model = new DefaultTableModel(0, COLNUM);
+            model.setColumnIdentifiers(columnNames);
             table.setModel(model);
             
             //Start at the beginning of the result set
@@ -53,24 +58,22 @@ public class thermalPrinter {
             while(rs.next()) {
                 
                 //Set up the th[] array
-                String cuID = Integer.toString(rs.getInt("cuID"));
-                String serialNumber = rs.getString("serialNumber");
-                String moduleT = rs.getString("moduleT");
-                String purchaseDate = rs.getString("purchaseDate");
+                th[0] = Integer.toString(rs.getInt("cuID"));
+                th[1] = rs.getString("serialNumber");
+                th[2] = rs.getString("moduleT");
+                th[3] = rs.getString("purchaseDate");
                 
-                th[0] = cuID;
-                th[1] = serialNumber;
-                th[2] = moduleT;
-                th[3] = purchaseDate;
-                
-                //Add this record to the database.
+                //Add this record to the table
                 model.addRow(th);
                 
                 if (table.getPreferredSize().width < table.getParent().getWidth()){
                     table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
                 } else table.setAutoResizeMode(table.AUTO_RESIZE_OFF);  
             }
+            
+            //Close the connection
             Connect.close();
+            
         } catch(Exception e) { System.out.println(e); }
     }
 }
