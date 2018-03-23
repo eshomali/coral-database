@@ -24,7 +24,7 @@ public class Connect {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"
-                    + "access","root","5755Troy!");
+                    + "access?useSSL=false","root","5755Troy!");
             
             st = con.createStatement();
         }catch(Exception e) { System.out.println(e); };
