@@ -10,6 +10,7 @@ import java.sql.*;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
+
 /**
  *
  * @author erin.rourke
@@ -193,22 +194,9 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
         int cuidVar = 0;    //cuID of the credit union selected by the user
         boolean selAll = false; //unneeded as of yet
         //----------------------------------------------------------------------
-        
-         //get input from comboBox
-        input = (comboBox.getSelectedItem()).toString();
 
-        //determine what credit union has been selected by cuID
-        try {
-            
-            Statement st = Connect.go();
-            ResultSet rs = st.executeQuery("SELECT cuID FROM credit_union "
-                    + "WHERE cuName = '" + input + "'");
-            rs.first();
-            cuidVar = rs.getInt("cuID");
-            
-            Connect.close();
-        } catch (Exception e) { System.out.println(e); }
-        
+        //Determine what credit union has been selected by cuID
+        cuidVar = Coral.selectedCUID(comboBox);
         
         //Set up the credit_union table view
         DefaultTableModel model0 = new DefaultTableModel(1, 55);
@@ -233,7 +221,8 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxActionPerformed
 
     private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
-        // TODO add your handling code here:
+        NEWCUMODEL frame = new NEWCUMODEL();
+        frame.setVisible(true);
     }//GEN-LAST:event_newButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
