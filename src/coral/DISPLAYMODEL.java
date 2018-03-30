@@ -227,12 +227,8 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
                 invalidInputText.setText("ERROR: The credit union entered does not exist.");
             }
             else{
-                //Set up the credit_union table view
-                DefaultTableModel model0 = new DefaultTableModel(1, 55);
-                tableView0.setModel(model0);
-
                 //call creditU() to populate the first table
-                creditUnion.creditU("", cuidVar, selAll, tableView0);
+                creditUnion.creditU(cuidVar, tableView0);
 
                 //call laserP() to populate the second table
                 laserPrinter.laserP(cuidVar, tableView1);
