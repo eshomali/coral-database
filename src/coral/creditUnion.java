@@ -20,7 +20,7 @@ public class creditUnion {
     public static final int COLNUM = 55;
     //--------------------------------------------------------------------------
     
-    public static void creditU(String creditUnionVar, int cuidVar, boolean selAll, JTable table){
+    public static void creditU(int cuidVar, JTable table){
         
         //---Variables----------------------------------------------------------
         String[] cu = new String[COLNUM];
