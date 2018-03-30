@@ -5,162 +5,123 @@
 
 package coral;
 
+//---Imports--------------------------------------------------------------------
 import java.sql.*;
-
-import static coral.Model.main;
-import javax.swing.JTextArea;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
-
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-
-
+import javax.swing.table.DefaultTableModel;
+//------------------------------------------------------------------------------
 /**
  *
  * @author essa.shomali
  */
 public class creditUnion {
     
+    //---Constants--------------------------------------------------------------
+    public static final int COLNUM = 55;
+    //--------------------------------------------------------------------------
+    
     public static void creditU(String creditUnionVar, int cuidVar, boolean selAll, JTable table){
         
-        String[] cu = new String[55];
-    //    String[] cuidJ = new String[55];
-        int rowCount = 0;
-        int i = 0;
-        
+        //---Variables----------------------------------------------------------
+        String[] cu = new String[COLNUM];
+        String[] columnNames = new String[COLNUM];
+        //----------------------------------------------------------------------
+       
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/access","root","5755Troy!");
+            //Create the result set and its metadata 
+            Statement st = Connect.go();
+            ResultSet rs = st.executeQuery("SELECT * FROM credit_union "
+                    + "WHERE cuID = " + cuidVar);
+            ResultSetMetaData rsmd = rs.getMetaData();
+            
+            //Determine the column names
+            for(int i = 0; i < COLNUM; i++){
+                columnNames[i] = rsmd.getColumnName(i+1);
+            }
+            
+            //Set up the table model
+            DefaultTableModel model = new DefaultTableModel(0, COLNUM);
+            model.setColumnIdentifiers(columnNames);
+            table.setModel(model);
+
+            //Start at the beginning of the result set
+            rs.absolute(0);
+            
+            //Iterate through the result set
+            while(rs.next()){
+                //Set up the cu[] array
+                cu[0] = Integer.toString(rs.getInt("cuID"));
+                cu[1] = rs.getString("cuName");
+                cu[2] = rs.getString("dataProcessor");
+                cu[3] = rs.getString("inactive");
+                cu[4] = rs.getString("city");
+                cu[5] = rs.getString("us_state");
+                cu[6] = rs.getString("contactName");
+                cu[7] = rs.getString("contactInfo");
+                cu[8] = rs.getString("eRecipts");
+                cu[9] = rs.getString("eReciptBranches");
+                cu[10] = rs.getString("emailEncryption");
+                cu[11] = rs.getString("emailEncryptionType");
+                cu[12] = rs.getString("emailEncryptionSeats");
+                cu[13] = rs.getString("brandedPortal");
+                cu[14] = rs.getString("sigSales");
+                cu[15] = rs.getString("DCN");
+                cu[16] = rs.getString("iDS");
+                cu[17] = rs.getString("serverIP");
+                cu[18] = rs.getString("serverName");
+                cu[19] = rs.getString("serverOS");
+                cu[20] = rs.getString("sqlInstance");
+                cu[21] = rs.getString("sqlVersion");
+                cu[22] = rs.getString("branchNumber");
+                cu[23] = rs.getString("cdVersion");
+                cu[24] = rs.getString("manageDBName");
+                cu[25] = rs.getString("tellerDBName");
+                cu[26] = rs.getString("eSign");
+                cu[27] = rs.getString("eSignType");
+                cu[28] = rs.getString("eSignSeats");
+                cu[29] = rs.getString("DMSLogin");
+                cu[30] = rs.getString("DMSPassword");
+                cu[31] = rs.getString("installPath");
+                cu[32] = rs.getString("managePurchaseDate");
+                cu[33] = rs.getString("tellerPurchaseDate");
+                cu[34] = rs.getString("scanID");
+                cu[35] = rs.getString("scanIDCount");
+                cu[36] = rs.getString("scanStation");
+                cu[37] = rs.getString("scanStationCount");
+                cu[38] = rs.getString("scanPort");
+                cu[39] = rs.getString("transPort");
+                cu[40] = rs.getString("txtReceipts");
+                cu[41] = rs.getString("txtReceiptBranch");
+                cu[42] = rs.getString("SMS_Number");
+                cu[43] = rs.getString("laserSupportType");
+                cu[44] = rs.getString("thermalColor");
+                cu[45] = rs.getString("thermalMasking");
+                cu[46] = rs.getString("thermalFontSize");
+                cu[47] = rs.getString("thermalDuplicate");
+                cu[48] = rs.getString("thermalT_ck");
+                cu[49] = rs.getString("thermalEndorse_ck");
+                cu[50] = rs.getString("thermalDateLastPurchase");
+                cu[51] = rs.getString("thermalNotes");
+                cu[52] = rs.getString("techNotes1");
+                cu[53] = rs.getString("techNotes2");
+                cu[54] = rs.getString("genNotes");
                 
-            String querySel = String.format("SELECT * from credit_union");    //credit_union
-            String queryID = String.format(" where cuID = " + cuidVar);
+                //Add this record to the table
+                model.addRow(cu);
+                
+                //Set up the column resizing
+                if (table.getPreferredSize().width < table.getParent().getWidth()) table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+                else table.setAutoResizeMode(table.AUTO_RESIZE_OFF);
+            }
             
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(querySel + queryID); //selects specified stuff
-            //ResultSet rs = st.executeQuery(querySel); //selects all
+            //Close the connection
+            Connect.close();
             
-            while(rs.next()){ 
-    
-            int rowNum = rs.getRow();
+        } catch(Exception e) { System.out.println(e); }    
+    }
+}
 
-            String cuID = Integer.toString(rs.getInt("cuID"));
-            String cuName = rs.getString("cuName");
-            String dataProcessor = rs.getString("dataProcessor");
-            String inactive = rs.getString("inactive");
-            String city = rs.getString("city");
-            String us_state = rs.getString("us_state");
-            String contactName = rs.getString("contactName");
-            String contactInfo = rs.getString("contactInfo");
-            String eRecipts = rs.getString("eRecipts");
-            String eReciptBranches = rs.getString("eReciptBranches");
-            String emailEncryption = rs.getString("emailEncryption");
-            String emailEncryptionType = rs.getString("emailEncryptionType");
-            String emailEncryptionSeats = rs.getString("emailEncryptionSeats");
-            String brandedPortal = rs.getString("brandedPortal");
-            String sigSales = rs.getString("sigSales");
-            String DCN = rs.getString("DCN");
-            String iDS = rs.getString("iDS");
-            String serverIP = rs.getString("serverIP");
-            String serverName = rs.getString("serverName");
-            String serverOS = rs.getString("serverOS");
-            String sqlInstance = rs.getString("sqlInstance");
-            String sqlVersion = rs.getString("sqlVersion");
-            String branchNumber = rs.getString("branchNumber");
-            String cdVersion = rs.getString("cdVersion");
-            String manageDBName = rs.getString("manageDBName");
-            String tellerDBName = rs.getString("tellerDBName");
-            String eSign = rs.getString("eSign");
-            String eSignType = rs.getString("eSignType");
-            String eSignSeats = rs.getString("eSignSeats");
-            String DMSLogin = rs.getString("DMSLogin");
-            String DMSPassword = rs.getString("DMSPassword");
-            String installPath = rs.getString("installPath");
-            String managePurchaseDate = rs.getString("managePurchaseDate");
-            String tellerPurchaseDate = rs.getString("tellerPurchaseDate");
-            String scanID = rs.getString("scanID");
-            String scanIDCount = rs.getString("scanIDCount");
-            String scanStation = rs.getString("scanStation");
-            String scanStationCount = rs.getString("scanStationCount");
-            String scanPort = rs.getString("scanPort");
-            String transPort = rs.getString("transPort");
-            String txtReceipts = rs.getString("txtReceipts");
-            String txtReceiptBranch = rs.getString("txtReceiptBranch");
-            String SMS_Number = rs.getString("SMS_Number");
-            String laserSupportType = rs.getString("laserSupportType");
-            String thermalColor = rs.getString("thermalColor");
-            String thermalMasking = rs.getString("thermalMasking");
-            String thermalFontSize = rs.getString("thermalFontSize");
-            String thermalDuplicate = rs.getString("thermalDuplicate");
-            String thermalT_ck = rs.getString("thermalT_ck");
-            String thermalEndorse_ck = rs.getString("thermalEndorse_ck");
-            String thermalDateLastPurchase = rs.getString("thermalDateLastPurchase");
-            String thermalNotes = rs.getString("thermalNotes");
-            String techNotes1 = rs.getString("techNotes1");
-            String techNotes2 = rs.getString("techNotes2");
-            String genNotes = rs.getString("genNotes"); 
-            
-            cu[0] = cuID;
-            cu[1] = cuName;
-            cu[2] = dataProcessor;
-            cu[3] = inactive;
-            cu[4] = city;
-            cu[5] = us_state;
-            cu[6] = contactName;
-            cu[7] = contactInfo;
-            cu[8] = eRecipts;
-            cu[9] = eReciptBranches;
-            cu[10] = emailEncryption;
-            cu[11] = emailEncryptionType;
-            cu[12] = emailEncryptionSeats;
-            cu[13] = brandedPortal;
-            cu[14] = sigSales;
-            cu[15] = DCN;
-            cu[16] = iDS;
-            cu[17] = serverIP;
-            cu[18] = serverName;
-            cu[19] = serverOS;
-            cu[20] = sqlInstance;
-            cu[21] = sqlVersion;
-            cu[22] = branchNumber;
-            cu[23] = cdVersion;
-            cu[24] = manageDBName;
-            cu[25] = tellerDBName;
-            cu[26] = eSign;
-            cu[27] = eSignType;
-            cu[28] = eSignSeats;
-            cu[29] = DMSLogin;
-            cu[30] = DMSPassword;
-            cu[31] = installPath;
-            cu[32] = managePurchaseDate;
-            cu[33] = tellerPurchaseDate;
-            cu[34] = scanID;
-            cu[35] = scanIDCount;
-            cu[36] = scanStation;
-            cu[37] = scanStationCount;
-            cu[38] = scanPort;
-            cu[39] = transPort;
-            cu[40] = txtReceipts;
-            cu[41] = txtReceiptBranch;
-            cu[42] = SMS_Number;
-            cu[43] = laserSupportType;
-            cu[44] = thermalColor;
-            cu[45] = thermalMasking;
-            cu[46] = thermalFontSize;
-            cu[47] = thermalDuplicate;
-            cu[48] = thermalT_ck;
-            cu[49] = thermalEndorse_ck;
-            cu[50] = thermalDateLastPurchase;
-            cu[51] = thermalNotes;
-            cu[52] = techNotes1;
-            cu[53] = techNotes2;
-            cu[54] = genNotes; 
-            
-            
-
-            
-        /*    System.out.println( cuID + "\t" + 
+/*    System.out.println( cuID + "\t" + 
                                 cuName + "\t" +                     
                                 dataProcessor + "\t" +
                                 inactive + "\t" + 
@@ -215,86 +176,29 @@ public class creditUnion {
                        //         techNotes1 + "\t" + 
                        //         techNotes2 + "\t" + 
                        //         genNotes
-                                                        ); */
-                
-                
-            /*    ResultSetMetaData md = rs.getMetaData(); 
+                                                        ); 
+*/
+
+/*    ResultSetMetaData md = rs.getMetaData(); 
                 int colCount = md.getColumnCount();  
 
                 for (int i = 1; i <= colCount ; i++){  
                     String col_name = md.getColumnName(i);  
                     System.out.println(col_name);  
-                }  */
-            //  int cuID = rs.getInt("cuID");
-            //  String cuName = rs.getString("cuName");
-            //  int row  = rs.getRow();
-                //Date dateCreated = rs.getDate("date_created");
-                //boolean isAdmin = rs.getBoolean("is_admin");
-                //int numPoints = rs.getInt("num_points");
-            // System.out.format("%s, %s\n", cuID, cuName);
-            //  System.out.format("%s, %s, %s\n", cuID,cuName,row);
-            //System.out.println(rs.getInt(1)+" "+rs.getString(2));
-            
-            //System.out.format("%s\n", rowNum);
-            System.out.format("%s\n", rowCount);
-            
-            table.setValueAt(cu[0], rowCount, 0);
-            table.setValueAt(cu[1], rowCount, 1);
-            table.setValueAt(cu[2], rowCount, 2);
-            table.setValueAt(cu[3], rowCount, 3);
-            table.setValueAt(cu[4], rowCount, 4);
-            table.setValueAt(cu[5], rowCount, 5);
-            table.setValueAt(cu[6], rowCount, 6);
-            table.setValueAt(cu[7], rowCount, 7);
-            table.setValueAt(cu[8], rowCount, 8);
-            table.setValueAt(cu[9], rowCount, 9);
-            table.setValueAt(cu[10], rowCount, 10);
-            table.setValueAt(cu[11], rowCount, 11);
-            table.setValueAt(cu[12], rowCount, 12);
-            table.setValueAt(cu[13], rowCount, 13);
-            table.setValueAt(cu[14], rowCount, 14);
-            table.setValueAt(cu[15], rowCount, 15);
-            table.setValueAt(cu[16], rowCount, 16);
-            table.setValueAt(cu[17], rowCount, 17);
-            table.setValueAt(cu[18], rowCount, 18);
-            table.setValueAt(cu[19], rowCount, 19);
-            table.setValueAt(cu[20], rowCount, 20);
-            table.setValueAt(cu[21], rowCount, 21);
-            table.setValueAt(cu[22], rowCount, 22);
-            table.setValueAt(cu[23], rowCount, 23);
-            table.setValueAt(cu[24], rowCount, 24);
-            table.setValueAt(cu[25], rowCount, 25);
-            table.setValueAt(cu[26], rowCount, 26);
-            table.setValueAt(cu[27], rowCount, 27);
-            table.setValueAt(cu[28], rowCount, 28);
-            table.setValueAt(cu[29], rowCount, 29);
-            table.setValueAt(cu[30], rowCount, 30);
-            table.setValueAt(cu[31], rowCount, 31);
-            table.setValueAt(cu[32], rowCount, 32);
-            table.setValueAt(cu[33], rowCount, 33);
-            table.setValueAt(cu[34], rowCount, 34);
-            table.setValueAt(cu[35], rowCount, 35);
-            table.setValueAt(cu[36], rowCount, 36);
-            table.setValueAt(cu[37], rowCount, 37);
-            table.setValueAt(cu[38], rowCount, 38);
-            table.setValueAt(cu[39], rowCount, 39);
-            table.setValueAt(cu[40], rowCount, 40);
-            table.setValueAt(cu[41], rowCount, 41);
-            table.setValueAt(cu[42], rowCount, 42);
-            table.setValueAt(cu[43], rowCount, 43);
-            table.setValueAt(cu[44], rowCount, 44);
-            table.setValueAt(cu[45], rowCount, 45);
-            table.setValueAt(cu[46], rowCount, 46);
-            table.setValueAt(cu[47], rowCount, 47);
-            table.setValueAt(cu[48], rowCount, 48);
-            table.setValueAt(cu[49], rowCount, 49);
-            table.setValueAt(cu[50], rowCount, 50);
-            table.setValueAt(cu[51], rowCount, 51);
-            table.setValueAt(cu[52], rowCount, 52);
-            table.setValueAt(cu[53], rowCount, 53);
-            table.setValueAt(cu[54], rowCount, 54); 
-         
-  /*      int[] indexs = table.getSelectedRows();
+                }  
+*/
+
+//  int cuID = rs.getInt("cuID");
+//  String cuName = rs.getString("cuName");
+//  int row  = rs.getRow();
+    //Date dateCreated = rs.getDate("date_created");
+    //boolean isAdmin = rs.getBoolean("is_admin");
+    //int numPoints = rs.getInt("num_points");
+// System.out.format("%s, %s\n", cuID, cuName);
+//  System.out.format("%s, %s, %s\n", cuID,cuName,row);
+//System.out.println(rs.getInt(1)+" "+rs.getString(2));
+
+/*      int[] indexs = table.getSelectedRows();
         Object[] row = new Object[4];
         for(int j = 0; j < indexs.length; j++)
         {
@@ -307,9 +211,10 @@ public class creditUnion {
             row[3] = table.getValueAt(indexs[j], 3);
 
             table.addRow(row);
-        } */
-            
-     /*       cuidJ[0] =  table.setValueAt(cu[0], rowCount, 0);
+        } 
+*/
+
+/*       cuidJ[0] =  table.setValueAt(cu[0], rowCount, 0);
             cuidJ[1] =  table.setValueAt(cu[1], rowCount, 1);
             cuidJ[2] =  table.setValueAt(cu[2], rowCount, 2);
             cuidJ[3] =  table.setValueAt(cu[3], rowCount, 3);
@@ -363,80 +268,5 @@ public class creditUnion {
             cuidJ[51] = table.setValueAt(cu[51], rowCount, 51);
             cuidJ[52] = table.setValueAt(cu[52], rowCount, 52);
             cuidJ[53] = table.setValueAt(cu[53], rowCount, 53);
-            cuidJ[54] = table.setValueAt(cu[54], rowCount, 54); */
-            
-            if (table.getPreferredSize().width < table.getParent().getWidth()) table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-            else table.setAutoResizeMode(table.AUTO_RESIZE_OFF);
-            
-                 
-            rowCount =+ rowNum;
-            //table.setValueAt(cu[rowCount], rowNum-1, rowCount);
-            //System.out.print("loop");
-
-            
-          }
-            //for(i=0; i<55; i++) table.setValueAt(cu[i], i, i);
-            
-
-            System.out.format("%s\n", rowCount);
-            con.close();
-        } catch(Exception e) { System.out.println(e); }
-      
-    }
-
-    
-    /*
-    public static void popComboBox(JComboBox comboBox){
-        String[] cuNames = null;
-        int index = 0;
-        int rowNum = 0;
-        Statement st = Connect.go();
-        ResultSet rs;
-        
-        try {
-            
-            rs = st.executeQuery("SELECT cuName FROM credit_union;");
-            rowNum = Coral.getRowNum(rs);
-            
-            cuNames = new String[rowNum-1];
-            
-            for(int i = 0; i < rowNum; i++){
-                cuNames[index] = rs.getString("cuName");
-            }
-
-        } catch (Exception e) { System.out.println(e); }
-
-        DefaultComboBoxModel model = new DefaultComboBoxModel(cuNames);
-        comboBox.setModel(model);
-    }
-
-    
-    /*
-    public static void popComboBox(JComboBox comboBox){
-        String[] cuNames = null;
-        int index = 0;
-        int rowNum = 0;
-        Statement st = Connect.go();
-        ResultSet rs;
-        
-        try {
-            
-            rs = st.executeQuery("SELECT cuName FROM credit_union;");
-            rowNum = Coral.getRowNum(rs);
-            
-            cuNames = new String[rowNum-1];
-            
-            for(int i = 0; i < rowNum; i++){
-                cuNames[index] = rs.getString("cuName");
-            }
-
-        } catch (Exception e) { System.out.println(e); }
-
-        DefaultComboBoxModel model = new DefaultComboBoxModel(cuNames);
-        comboBox.setModel(model);
-    }
-
-    */
-
-}
-
+            cuidJ[54] = table.setValueAt(cu[54], rowCount, 54); 
+*/

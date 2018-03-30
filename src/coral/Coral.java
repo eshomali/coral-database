@@ -6,7 +6,10 @@
 
 package coral;
 
+//---Imports--------------------------------------------------------------------
 import java.sql.*;
+import javax.swing.JComboBox;
+//------------------------------------------------------------------------------
 
 /**
  *
@@ -24,6 +27,7 @@ public class Coral {
 
         try {
             //Iterate through the result set
+            rs.first();
             while(rs.next()){
                 //Saves the current row into rowNum
                 rowNum =+ rs.getRow();
@@ -57,7 +61,7 @@ public class Coral {
     //  to1DStrArray()
     //  |   Returns a string array containing the elements of the result set
     //  |   obtained by executing the query... 
-    //  |   |   SELECT  colName  FROM  tableName
+    //  |       SELECT  colName  FROM  tableName
     //--------------------------------------------------------------------------
     public static String[] to1DStrArray(ResultSet rs) {
         
@@ -82,4 +86,45 @@ public class Coral {
         
         return output;
     }
-}    
+    
+    //--------------------------------------------------------------------------
+    //  selectedcuID()
+    //  |   This method takes a passed JComboBox (one populated using the credit
+    //  |   union names from the database) and returns the cuID of the
+    //  |   selected credit union. If the selected credit union does NOT exist, 
+    //  |   then cuID will be -1 to indicate an error.
+    //--------------------------------------------------------------------------
+    public static int selectedCUID(JComboBox comboBox){
+       
+        //---Variables----------------------------------------------------------
+        String input;
+        int output = -1;
+        //----------------------------------------------------------------------
+    
+        //Get input from comboBox
+        input = (comboBox.getSelectedItem()).toString();
+        
+        //Determine the selected credit union's cuID
+        try {
+            
+            Statement st = Connect.go();
+            ResultSet rs = st.executeQuery("SELECT cuID FROM credit_union "
+                    + "WHERE cuName = '" + input + "'");
+            
+            //Check that the credit union does exist.
+            if(!rs.isBeforeFirst()){
+                output = -1;
+            }
+            else{
+                rs.first();
+                output = rs.getInt("cuID");
+            }
+            
+            //Close the connection
+            Connect.close();
+            
+        } catch (Exception e) { System.out.println(e); }
+        
+        return output;
+    }
+}
