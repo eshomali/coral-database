@@ -9,6 +9,8 @@ import static coral.thermalPrinter.COLNUM;
 import java.sql.*;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.JTextComponent;
+
 
 /**
  *
@@ -35,23 +37,23 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
         titleLabel = new javax.swing.JLabel();
         comboBox = new javax.swing.JComboBox<>();
         button = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane0 = new javax.swing.JScrollPane();
         tableView0 = new javax.swing.JTable();
         cuLabel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        laserLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
         tableView1 = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        thermalLabel = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
         tableView2 = new javax.swing.JTable();
-        jLabel3 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
+        licenseLabel = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
         tableView3 = new javax.swing.JTable();
         newButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
+        invalidInputText = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1500, 599));
         setResizable(false);
 
         titleLabel.setText("Select a credit union:");
@@ -65,6 +67,8 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
         DefaultComboBoxModel model = new DefaultComboBoxModel(box);
         comboBox.setEditable(true);
         comboBox.setModel(model);
+        JTextComponent editor = (JTextComponent) comboBox.getEditor().getEditorComponent();
+        editor.setDocument(new complete(comboBox));
         comboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxActionPerformed(evt);
@@ -82,33 +86,33 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
             new Object [][] {},
             new String [] {}
         ));
-        jScrollPane1.setViewportView(tableView0);
+        jScrollPane0.setViewportView(tableView0);
 
         cuLabel.setText("Credit Union Table");
 
-        jLabel1.setText("Laser Table");
+        laserLabel.setText("Laser Table");
 
         tableView1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {},
             new String [] {}
         ));
-        jScrollPane2.setViewportView(tableView1);
+        jScrollPane1.setViewportView(tableView1);
 
-        jLabel2.setText("Thermal Table");
+        thermalLabel.setText("Thermal Table");
 
         tableView2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {},
             new String [] {}
         ));
-        jScrollPane3.setViewportView(tableView2);
+        jScrollPane2.setViewportView(tableView2);
 
-        jLabel3.setText("License Table");
+        licenseLabel.setText("License Table");
 
         tableView3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {},
             new String [] {}
         ));
-        jScrollPane4.setViewportView(tableView3);
+        jScrollPane3.setViewportView(tableView3);
 
         newButton.setText("NEW CREDIT UNION");
         newButton.addActionListener(new java.awt.event.ActionListener() {
@@ -124,6 +128,8 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
             }
         });
 
+        invalidInputText.setForeground(new java.awt.Color(255, 0, 0));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -136,17 +142,18 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
                     .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(newButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                        .addComponent(saveButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(saveButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(invalidInputText))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
+                    .addComponent(licenseLabel)
+                    .addComponent(thermalLabel)
+                    .addComponent(laserLabel)
                     .addComponent(cuLabel)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1148, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane4)
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1148, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane3)
+                    .addComponent(jScrollPane0))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -161,25 +168,27 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(button))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(button)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(invalidInputText))
+                    .addComponent(jScrollPane0, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addComponent(laserLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(thermalLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addComponent(licenseLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(newButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(saveButton))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -193,26 +202,38 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
         int cuidVar = 0;    //cuID of the credit union selected by the user
         boolean selAll = false; //unneeded as of yet
         //----------------------------------------------------------------------
+        
+        
+        //Error handling: make sure that the box is not empty
+        if((((comboBox.getSelectedItem()).toString()).trim()).equals("")){
+            invalidInputText.setText("ERROR: Invalid input. You must select a credit union.");
+        }
+        else{
+            //Determine what credit union has been selected by cuID
+            cuidVar = Coral.selectedCUID(comboBox);
+            //Error handling: make sure that the credit union exists.
+            if(cuidVar == -1){
+                invalidInputText.setText("ERROR: The credit union entered does not exist.");
+            }
+            else{
+                //Set up the credit_union table view
+                DefaultTableModel model0 = new DefaultTableModel(1, 55);
+                tableView0.setModel(model0);
 
-        //Determine what credit union has been selected by cuID
-        cuidVar = Coral.selectedCUID(comboBox);
-        
-        //Set up the credit_union table view
-        DefaultTableModel model0 = new DefaultTableModel(1, 55);
-        tableView0.setModel(model0);
-        
-        //call creditU() to populate the first table
-        creditUnion.creditU("", cuidVar, selAll, tableView0);
-        
-        //call laserP() to populate the second table
-        laserPrinter.laserP(cuidVar, tableView1);
-        
-        //Call thermalP() to populate the third table
-        thermalPrinter.thermalP(cuidVar, tableView2);
-        
-        //call license() to populate the fourth table
-        licenseList.license(cuidVar, tableView3);
-        
+                //call creditU() to populate the first table
+                creditUnion.creditU("", cuidVar, selAll, tableView0);
+
+                //call laserP() to populate the second table
+                laserPrinter.laserP(cuidVar, tableView1);
+
+                //Call thermalP() to populate the third table
+                thermalPrinter.thermalP(cuidVar, tableView2);
+
+                //call license() to populate the fourth table
+                licenseList.license(cuidVar, tableView3);
+            }
+
+        }
     }//GEN-LAST:event_buttonActionPerformed
 
     private void comboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxActionPerformed
@@ -270,19 +291,20 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
     private javax.swing.JButton button;
     private javax.swing.JComboBox<String> comboBox;
     private javax.swing.JLabel cuLabel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel invalidInputText;
+    private javax.swing.JScrollPane jScrollPane0;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel laserLabel;
+    private javax.swing.JLabel licenseLabel;
     private javax.swing.JButton newButton;
     private javax.swing.JButton saveButton;
     private javax.swing.JTable tableView0;
     private javax.swing.JTable tableView1;
     private javax.swing.JTable tableView2;
     private javax.swing.JTable tableView3;
+    private javax.swing.JLabel thermalLabel;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }

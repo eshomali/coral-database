@@ -91,7 +91,8 @@ public class Coral {
     //  selectedcuID()
     //  |   This method takes a passed JComboBox (one populated using the credit
     //  |   union names from the database) and returns the cuID of the
-    //  |   selected credit union.
+    //  |   selected credit union. If the selected credit union does NOT exist, 
+    //  |   then cuID will be -1 to indicate an error.
     //--------------------------------------------------------------------------
     public static int selectedCUID(JComboBox comboBox){
        
@@ -105,13 +106,23 @@ public class Coral {
         
         //Determine the selected credit union's cuID
         try {
+            
             Statement st = Connect.go();
             ResultSet rs = st.executeQuery("SELECT cuID FROM credit_union "
                     + "WHERE cuName = '" + input + "'");
-            rs.first();
-            output = rs.getInt("cuID");
             
+            //Check that the credit union does exist.
+            if(getRowNum(rs) == 0){
+                output = -1;
+            }
+            else{
+                rs.first();
+                output = rs.getInt("cuID");
+            }
+            
+            //Close the connection
             Connect.close();
+            
         } catch (Exception e) { System.out.println(e); }
         
         return output;
