@@ -112,7 +112,7 @@ public class Coral {
                     + "WHERE cuName = '" + input + "'");
             
             //Check that the credit union does exist.
-            if(getRowNum(rs) == 0){
+            if(!rs.isBeforeFirst()){
                 output = -1;
             }
             else{
