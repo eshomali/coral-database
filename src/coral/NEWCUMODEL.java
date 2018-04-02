@@ -47,7 +47,7 @@ public class NEWCUMODEL extends javax.swing.JFrame {
         fcuRadio = new javax.swing.JRadioButton();
         otherRadio = new javax.swing.JRadioButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         title.setText("Fill out the boxes below for the new credit union.");
 
@@ -236,6 +236,10 @@ public class NEWCUMODEL extends javax.swing.JFrame {
         //Error handling
         if(inputState.equals("")){
             stateValid = false;
+            
+        //Update the comboBox on DISPLAYMODEL with the new credit union
+        //DISPLAYMODEL dm = new DISPLAYMODEL();
+       // dm.addItemToBox(inputName);
         }
                 
         //Construct the query        
@@ -253,13 +257,15 @@ public class NEWCUMODEL extends javax.swing.JFrame {
             
             //Close the window.
             this.dispose();
+
+            //Reopen the display model
+            //DISPLAYMODEL displayModel = new DISPLAYMODEL();
+            //displayModel.setVisible(true);
         }
         //if one or more of the fields are invalid
         else {
-            
             errorLabel.setText(error);
-        }
-        
+        }      
         
     }//GEN-LAST:event_goButtonActionPerformed
 

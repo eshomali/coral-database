@@ -214,7 +214,7 @@ public class EDITMODEL extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         SMS_NumberTXT = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("cuName");
 
@@ -385,7 +385,7 @@ public class EDITMODEL extends javax.swing.JFrame {
     private void saveBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBTNActionPerformed
         
         int rowCount = 0;
-        int cuidVar = 2;
+        int cuidVar = Coral.selectedCUID(comboBox);
         int i = 0;
             String cuID;
             String cuName = null;

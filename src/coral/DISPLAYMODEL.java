@@ -7,6 +7,7 @@ package coral;
 
 import static coral.thermalPrinter.COLNUM;
 import java.sql.*;
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.JTextComponent;
@@ -53,6 +54,7 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
         saveButton = new javax.swing.JButton();
         invalidInputText = new javax.swing.JLabel();
         editButton = new javax.swing.JButton();
+        refreshButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -66,10 +68,11 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
         } catch (Exception e) { System.out.println(e); }
         String[] box = Coral.to1DStrArray(rs);
         DefaultComboBoxModel model = new DefaultComboBoxModel(box);
-        comboBox.setEditable(true);
         comboBox.setModel(model);
+        comboBox.setEditable(true);
         JTextComponent editor = (JTextComponent) comboBox.getEditor().getEditorComponent();
         editor.setDocument(new complete(comboBox));
+        comboBox.setSelectedIndex(0);
         comboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxActionPerformed(evt);
@@ -138,15 +141,25 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
             }
         });
 
+        refreshButton.setText("REFRESH");
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(button)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(refreshButton))
                     .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(invalidInputText)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -177,7 +190,9 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(button)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(button)
+                            .addComponent(refreshButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(invalidInputText))
                     .addComponent(jScrollPane0, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -257,10 +272,20 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-
         EDITMODEL frame = new EDITMODEL(comboBox);
         frame.setVisible(true);
     }//GEN-LAST:event_editButtonActionPerformed
+
+    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+        Statement st = Connect.go();
+        ResultSet rs = null;
+        try {
+            rs = st.executeQuery("SELECT cuName FROM credit_union");
+        } catch (Exception e) { System.out.println(e); }
+        String[] box = Coral.to1DStrArray(rs);
+        DefaultComboBoxModel newModel = new DefaultComboBoxModel(box);
+        comboBox.setModel(newModel);
+    }//GEN-LAST:event_refreshButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,6 +324,32 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
             }
         });
     }
+    /*
+    public void updateBox(){
+        Statement st = Connect.go();
+        ResultSet rs = null;
+        try{
+            rs = st.executeQuery("SELECT cuName FROM credit_union");
+            System.out.println(Coral.getRowNum(rs));
+        } catch (Exception e) { System.out.println(e); }
+        String[] box = Coral.to1DStrArray(rs);
+        for(int i = 1140; i < 1165; i++){
+            System.out.println("i: " + i + "     credit union: " + box[i]);
+        }
+        DefaultComboBoxModel model = new DefaultComboBoxModel(box);
+        comboBox.setModel(model);
+    }
+    
+    public void addElementx(String x){
+        DefaultComboBoxModel newModel = (DefaultComboBoxModel) comboBox.getModel();
+        newModel.addElement(x);
+        comboBox.setModel(newModel);
+    }
+    
+    public void updateComboBox(String x){
+        ((DefaultComboBoxModel) comboBox.getModel()).addElement(x);
+    }
+    */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button;
@@ -313,6 +364,7 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
     private javax.swing.JLabel laserLabel;
     private javax.swing.JLabel licenseLabel;
     private javax.swing.JButton newButton;
+    private javax.swing.JButton refreshButton;
     private javax.swing.JButton saveButton;
     private javax.swing.JTable tableView0;
     private javax.swing.JTable tableView1;
