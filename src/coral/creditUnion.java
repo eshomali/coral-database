@@ -16,15 +16,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class creditUnion {
     
-    //---Constants--------------------------------------------------------------
-    public static final int COLNUM = 55;
-    //--------------------------------------------------------------------------
-    
     public static void creditU(int cuidVar, JTable table){
         
         //---Variables----------------------------------------------------------
-        String[] cu = new String[COLNUM];
-        String[] columnNames = new String[COLNUM];
+        String[] cu, columnNames;
+        int colNum;
         //----------------------------------------------------------------------
        
         try {
@@ -34,13 +30,18 @@ public class creditUnion {
                     + "WHERE cuID = " + cuidVar);
             ResultSetMetaData rsmd = rs.getMetaData();
             
+            //Set up variables
+            colNum = Coral.getColNum(rs);
+            columnNames = new String[colNum];
+            cu = new String[colNum];
+            
             //Determine the column names
-            for(int i = 0; i < COLNUM; i++){
+            for(int i = 0; i < colNum; i++){
                 columnNames[i] = rsmd.getColumnName(i+1);
             }
             
             //Set up the table model
-            DefaultTableModel model = new DefaultTableModel(0, COLNUM);
+            DefaultTableModel model = new DefaultTableModel(0, colNum);
             model.setColumnIdentifiers(columnNames);
             table.setModel(model);
 
