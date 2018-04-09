@@ -128,7 +128,7 @@ public class EDITMODEL extends javax.swing.JFrame {
             tellerDBName = rs.getString("tellerDBName");
             eSign = rs.getString("eSign");
             eSignType = rs.getString("eSignType");
-            eSignSeats = rs.getString("eSignSeats");
+            eSignSeats = rs.getString("eSignSeats");  
             DMSLogin = rs.getString("DMSLogin");
             DMSPassword = rs.getString("DMSPassword");
             installPath = rs.getString("installPath");

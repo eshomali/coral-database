@@ -285,7 +285,7 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-        EDITMODEL frame = new EDITMODEL(comboBox);
+        EDITMODEL frame = new EDITMODEL(comboBox); 
         frame.setVisible(true);
     }//GEN-LAST:event_editButtonActionPerformed
 

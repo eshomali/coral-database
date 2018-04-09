@@ -263,7 +263,7 @@ public class NEWCUMODEL extends javax.swing.JFrame {
         }
         //if one or more of the fields are invalid
         else {
-            errorLabel.setText(error);
+            errorLabel.setText(error); 
         }      
         
     }//GEN-LAST:event_goButtonActionPerformed
