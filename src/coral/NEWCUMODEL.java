@@ -8,8 +8,6 @@ package coral;
 //---Imports--------------------------------------------------------------------
 import java.sql.*;
 import javax.swing.DefaultComboBoxModel;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 //------------------------------------------------------------------------------
 /**
  *

@@ -155,6 +155,12 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
             }
         });
 
+        changeEventButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeEventButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -282,6 +288,10 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
         EDITMODEL frame = new EDITMODEL(comboBox);
         frame.setVisible(true);
     }//GEN-LAST:event_editButtonActionPerformed
+
+    private void changeEventButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeEventButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_changeEventButtonActionPerformed
     
     public JComboBox getComboBox(){
         return comboBox;
