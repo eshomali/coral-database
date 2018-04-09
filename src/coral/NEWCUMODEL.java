@@ -14,12 +14,16 @@ import javax.swing.DefaultComboBoxModel;
  * @author erin.rourke
  */
 public class NEWCUMODEL extends javax.swing.JFrame {
-
+    
+    //---Variables--------------------------------------------------------------
+    DISPLAYMODEL prevFrame;
+    //--------------------------------------------------------------------------
     /**
      * Creates new form NEWCUMODEL
      */
-    public NEWCUMODEL() {
+    public NEWCUMODEL(DISPLAYMODEL dm){
         initComponents();
+        prevFrame = dm;
     }
 
     /**
@@ -47,7 +51,7 @@ public class NEWCUMODEL extends javax.swing.JFrame {
         fcuRadio = new javax.swing.JRadioButton();
         otherRadio = new javax.swing.JRadioButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         title.setText("Fill out the boxes below for the new credit union.");
 
@@ -245,21 +249,22 @@ public class NEWCUMODEL extends javax.swing.JFrame {
         //Check the conditions before executing the query
         //if all user input is valid
         if(nameValid && cityValid && stateValid == true){
-            //Execute the query
-            try {
-                Statement st = Connect.go();
-                st.executeUpdate(ourQuery);
-            } catch (Exception e) { System.out.println(); }
-            
-            //Close the window.
-            this.dispose();
+        //Execute the query
+        try {
+            Statement st = Connect.go();
+            st.executeUpdate(ourQuery);
+        } catch (Exception e) { System.out.println(); }
+
+        //Trigger ChangeEvent
+        prevFrame.clickNotButton();
+        //Close the window.
+        this.dispose();
+
         }
         //if one or more of the fields are invalid
         else {
-            
             errorLabel.setText(error);
-        }
-        
+        }      
         
     }//GEN-LAST:event_goButtonActionPerformed
 
@@ -270,41 +275,7 @@ public class NEWCUMODEL extends javax.swing.JFrame {
     private void fcuRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fcuRadioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fcuRadioActionPerformed
-        
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NEWCUMODEL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NEWCUMODEL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NEWCUMODEL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NEWCUMODEL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NEWCUMODEL().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup;

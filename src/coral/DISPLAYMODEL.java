@@ -5,11 +5,14 @@
  */
 package coral;
 
-import static coral.thermalPrinter.COLNUM;
 import java.sql.*;
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.JTextComponent;
+import javax.swing.JComboBox;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 
 /**
@@ -23,6 +26,18 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
      */
     public DISPLAYMODEL() {
         initComponents();
+        
+        //Set up the obsolete button (changeEventButton) with the listener
+        changeEventButton.setVisible(false);
+        ChangeListener cListener = new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                System.out.println("CHANGE EVENT TRIGGERED");
+                updateComboBox();
+            }
+        };
+        changeEventButton.addChangeListener(cListener);
+        
     }
 
     /**
@@ -53,6 +68,7 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
         saveButton = new javax.swing.JButton();
         invalidInputText = new javax.swing.JLabel();
         editButton = new javax.swing.JButton();
+        changeEventButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -66,10 +82,11 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
         } catch (Exception e) { System.out.println(e); }
         String[] box = Coral.to1DStrArray(rs);
         DefaultComboBoxModel model = new DefaultComboBoxModel(box);
-        comboBox.setEditable(true);
         comboBox.setModel(model);
+        comboBox.setEditable(true);
         JTextComponent editor = (JTextComponent) comboBox.getEditor().getEditorComponent();
         editor.setDocument(new complete(comboBox));
+        comboBox.setSelectedIndex(0);
         comboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxActionPerformed(evt);
@@ -138,27 +155,35 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
             }
         });
 
+        changeEventButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeEventButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button)
                     .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(invalidInputText)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(editButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(newButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                        .addComponent(saveButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(editButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(newButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(saveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(licenseLabel)
                     .addComponent(thermalLabel)
                     .addComponent(laserLabel)
-                    .addComponent(cuLabel)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cuLabel)
+                        .addGap(368, 368, 368)
+                        .addComponent(changeEventButton))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1148, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
                     .addComponent(jScrollPane3)
@@ -168,10 +193,13 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cuLabel)
-                    .addComponent(titleLabel))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cuLabel)
+                            .addComponent(titleLabel)))
+                    .addComponent(changeEventButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -227,12 +255,8 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
                 invalidInputText.setText("ERROR: The credit union entered does not exist.");
             }
             else{
-                //Set up the credit_union table view
-                DefaultTableModel model0 = new DefaultTableModel(1, 55);
-                tableView0.setModel(model0);
-
                 //call creditU() to populate the first table
-                creditUnion.creditU("", cuidVar, selAll, tableView0);
+                creditUnion.creditU(cuidVar, tableView0);
 
                 //call laserP() to populate the second table
                 laserPrinter.laserP(cuidVar, tableView1);
@@ -252,7 +276,7 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxActionPerformed
 
     private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
-        NEWCUMODEL frame = new NEWCUMODEL();
+        NEWCUMODEL frame = new NEWCUMODEL(this);
         frame.setVisible(true);
     }//GEN-LAST:event_newButtonActionPerformed
 
@@ -261,14 +285,44 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-
         EDITMODEL frame = new EDITMODEL(comboBox);
         frame.setVisible(true);
     }//GEN-LAST:event_editButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void changeEventButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeEventButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_changeEventButtonActionPerformed
+    
+    public JComboBox getComboBox(){
+        return comboBox;
+    }
+    
+    public void updateComboBox(){
+        System.out.println("updateComboBox entered.");
+        Statement st = Connect.go();
+        ResultSet rs = null;
+        try {
+            rs = st.executeQuery("SELECT cuName FROM credit_union");
+        } catch (Exception e) { System.out.println(e); }
+        String[] box = Coral.to1DStrArray(rs);
+        DefaultComboBoxModel newModel = new DefaultComboBoxModel(box);
+        comboBox.setModel(newModel);
+    }
+    
+    //Used to generate ChangeEvent to trigger comboBox update
+    public void clickNotButton(){
+        changeEventButton.doClick();
+    }
+    /*
+    public static ActionListener myListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e){
+            NEWCUMODEL objNEWCU = new NEWCUMODEL();
+            
+        }
+    };
+    */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -303,9 +357,36 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
             }
         });
     }
+    /*
+    public void updateBox(){
+        Statement st = Connect.go();
+        ResultSet rs = null;
+        try{
+            rs = st.executeQuery("SELECT cuName FROM credit_union");
+            System.out.println(Coral.getRowNum(rs));
+        } catch (Exception e) { System.out.println(e); }
+        String[] box = Coral.to1DStrArray(rs);
+        for(int i = 1140; i < 1165; i++){
+            System.out.println("i: " + i + "     credit union: " + box[i]);
+        }
+        DefaultComboBoxModel model = new DefaultComboBoxModel(box);
+        comboBox.setModel(model);
+    }
+    
+    public void addElementx(String x){
+        DefaultComboBoxModel newModel = (DefaultComboBoxModel) comboBox.getModel();
+        newModel.addElement(x);
+        comboBox.setModel(newModel);
+    }
+    
+    public void updateComboBox(String x){
+        ((DefaultComboBoxModel) comboBox.getModel()).addElement(x);
+    }
+    */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button;
+    private javax.swing.JButton changeEventButton;
     private javax.swing.JComboBox<String> comboBox;
     private javax.swing.JLabel cuLabel;
     private javax.swing.JButton editButton;

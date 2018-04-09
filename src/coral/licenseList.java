@@ -14,11 +14,6 @@ import javax.swing.table.DefaultTableModel;
  * @author essa.shomali
  */
 public class licenseList {
-    
-    //---Constants--------------------------------------------------------------
-    public static final int COLNUM = 5;
-    //--------------------------------------------------------------------------
-    
     //--------------------------------------------------------------------------
     //  license()
     //  |   This method populates a JTable with all of the records in the 
@@ -27,8 +22,8 @@ public class licenseList {
     public static void license(int cuidVar, JTable table){
         
         //---Variables----------------------------------------------------------
-        String[] lic = new String[COLNUM];
-        String[] columnNames = new String[COLNUM];
+        String[] lic, columnNames;
+        int colNum;
         //----------------------------------------------------------------------
         
         try {
@@ -38,13 +33,18 @@ public class licenseList {
                     + "WHERE cuID = " + cuidVar);
             ResultSetMetaData rsmd = rs.getMetaData();
             
+            //Set up the variables
+            colNum = Coral.getColNum(rs);
+            columnNames = new String[colNum];
+            lic = new String[colNum];
+            
             //Determine the column names
-            for(int i = 0; i < COLNUM; i++){
+            for(int i = 0; i < colNum; i++){
                 columnNames[i] = rsmd.getColumnName(i+1);
             }
             
             //Set up the table model
-            DefaultTableModel model = new DefaultTableModel(0, COLNUM);
+            DefaultTableModel model = new DefaultTableModel(0, colNum);
             model.setColumnIdentifiers(columnNames);
             table.setModel(model);
             

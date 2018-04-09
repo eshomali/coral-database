@@ -15,13 +15,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author essa.shomali
  */
-public class thermalPrinter {
-    
-    //---Constants--------------------------------------------------------------
-    public static final int COLNUM = 4; //DOES NOT INCLUDE tID (because we 
-                                        //don't want to show this to the user)
-    //--------------------------------------------------------------------------
-    
+public class thermalPrinter { 
     //--------------------------------------------------------------------------
     //  thermalP()
     //  |   This method populates a JTable with all of the records in the 
@@ -30,8 +24,8 @@ public class thermalPrinter {
     public static void thermalP(int cuidVar, JTable table){
         
         //---Variables----------------------------------------------------------
-        String[] th = new String[COLNUM];
-        String[] columnNames = new String[COLNUM];
+        String[] th, columnNames;
+        int colNum;
         //----------------------------------------------------------------------
         
         try {
@@ -41,13 +35,18 @@ public class thermalPrinter {
                     + "WHERE cuID = " + cuidVar);
             ResultSetMetaData rsmd = rs.getMetaData();
             
+            //Set up the variables
+            colNum = (Coral.getColNum(rs));
+            columnNames = new String[colNum];
+            th = new String[colNum];
+            
             //Determine the column names
-            for(int i = 0; i < COLNUM; i++){
+            for(int i = 0; i < colNum; i++){
                 columnNames[i] = rsmd.getColumnName(i+1);
             }
             
             //Set up the table model
-            DefaultTableModel model = new DefaultTableModel(0, COLNUM);
+            DefaultTableModel model = new DefaultTableModel(0, colNum);
             model.setColumnIdentifiers(columnNames);
             table.setModel(model);
             
@@ -58,10 +57,11 @@ public class thermalPrinter {
             while(rs.next()) {
                 
                 //Set up the th[] array
-                th[0] = Integer.toString(rs.getInt("cuID"));
-                th[1] = rs.getString("serialNumber");
-                th[2] = rs.getString("moduleT");
-                th[3] = rs.getString("purchaseDate");
+                th[0] = Integer.toString(rs.getInt("tID"));
+                th[1] = Integer.toString(rs.getInt("cuID"));
+                th[2] = rs.getString("serialNumber");
+                th[3] = rs.getString("moduleT");
+                th[4] = rs.getString("purchaseDate");
                 
                 //Add this record to the table
                 model.addRow(th);

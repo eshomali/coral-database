@@ -17,9 +17,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class laserPrinter {
     
-    //---Constants--------------------------------------------------------------
-    public static final int COLNUM = 103;
-    //--------------------------------------------------------------------------
     
     //--------------------------------------------------------------------------
     //  laserP()
@@ -29,8 +26,8 @@ public class laserPrinter {
     public static void laserP(int cuidVar, JTable table){
         
         //---Variables----------------------------------------------------------
-        String[] las = new String[COLNUM];
-        String[] columnNames = new String[COLNUM];
+        String[] las, columnNames;
+        int colNum;
         //----------------------------------------------------------------------
         
         try {
@@ -40,13 +37,18 @@ public class laserPrinter {
                     + "WHERE cuID = " + cuidVar);
             ResultSetMetaData rsmd = rs.getMetaData();
             
+            //Set up variables
+            colNum = Coral.getColNum(rs);
+            columnNames = new String[colNum];
+            las = new String[colNum];
+            
             //Determine the column names
-            for(int i = 0; i < COLNUM; i++){
+            for(int i = 0; i < colNum; i++){
                 columnNames[i] = rsmd.getColumnName(i+1);
             }
             
             //Set up the table model
-            DefaultTableModel model = new DefaultTableModel(0, COLNUM);
+            DefaultTableModel model = new DefaultTableModel(0, colNum);
             model.setColumnIdentifiers(columnNames);
             table.setModel(model);
             
@@ -90,7 +92,7 @@ public class laserPrinter {
                 las[31] = rs.getString("report_port");
                 las[32] = rs.getString("report_tray");
                 
-                //---the following is of type LONGTEXT, may cause errors.-------
+                //---the following is of type LONGTEXT--------------------------
                 las[33] = rs.getString("notes");
                 //--------------------------------------------------------------
                 
