@@ -1,0 +1,44 @@
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq {space :::p, par l {comp title:::p::p, comp prompt::l:p::p, seq l {space :p:44:p, par l {comp username::l:p::p, comp password::l:p::p}, space s:::p, par l:::p {comp userField:::::x, comp passField::::155:x}}}, space ::88:x}, seq t {space :::x, comp jButton1:::p:60:p, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :::p, comp title:::p::p, space :::p, comp prompt:::p:14:p, space s:::p, par b {comp username::b:p::p, comp userField::b:p::p}, space s:::p, par b {comp password::b:p::p, comp passField::b:p::p}, space ::18:x, comp jButton1:::p::p, space :::p}}"
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 3
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "title"
+				"text": "Welcome to the Best Database!"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "prompt"
+				"text": "Enter your credentials below:"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "username"
+				"text": "Username:"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "password"
+				"text": "Password:"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "userField"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "userFieldActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "passField"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "jButton1"
+				"text": "GO!"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton1ActionPerformed", true ) )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+	}
+}

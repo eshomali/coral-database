@@ -5,9 +5,13 @@
  */
 package coral;
 
+import java.awt.*;
 import java.sql.*;
+import javax.swing.*;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.JTextComponent;
 import javax.swing.JComboBox;
@@ -47,191 +51,176 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // Generated using JFormDesigner Evaluation license - Nisarg Patel
     private void initComponents() {
+        titleLabel = new JLabel();
+        comboBox = new JComboBox<>();
+        button = new JButton();
+        jScrollPane0 = new JScrollPane();
+        tableView0 = new JTable();
+        cuLabel = new JLabel();
+        laserLabel = new JLabel();
+        jScrollPane1 = new JScrollPane();
+        tableView1 = new JTable();
+        thermalLabel = new JLabel();
+        jScrollPane2 = new JScrollPane();
+        tableView2 = new JTable();
+        licenseLabel = new JLabel();
+        jScrollPane3 = new JScrollPane();
+        tableView3 = new JTable();
+        newButton = new JButton();
+        saveButton = new JButton();
+        invalidInputText = new JLabel();
+        editButton = new JButton();
+        changeEventButton = new JButton();
 
-        titleLabel = new javax.swing.JLabel();
-        comboBox = new javax.swing.JComboBox<>();
-        button = new javax.swing.JButton();
-        jScrollPane0 = new javax.swing.JScrollPane();
-        tableView0 = new javax.swing.JTable();
-        cuLabel = new javax.swing.JLabel();
-        laserLabel = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableView1 = new javax.swing.JTable();
-        thermalLabel = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tableView2 = new javax.swing.JTable();
-        licenseLabel = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tableView3 = new javax.swing.JTable();
-        newButton = new javax.swing.JButton();
-        saveButton = new javax.swing.JButton();
-        invalidInputText = new javax.swing.JLabel();
-        editButton = new javax.swing.JButton();
-        changeEventButton = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        //======== this ========
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        Container contentPane = getContentPane();
 
+        //---- titleLabel ----
         titleLabel.setText("Select a credit union:");
 
+        //---- comboBox ----
         Statement st = Connect.go();
-        ResultSet rs = null;
-        try{
-            rs = st.executeQuery("SELECT cuName FROM credit_union");
-        } catch (Exception e) { System.out.println(e); }
-        String[] box = Coral.to1DStrArray(rs);
-        DefaultComboBoxModel model = new DefaultComboBoxModel(box);
-        comboBox.setModel(model);
-        comboBox.setEditable(true);
+                ResultSet rs = null;
+                try{
+                    rs = st.executeQuery("SELECT cuName FROM credit_union");
+                } catch (Exception e) { System.out.println(e); }
+                String[] box = Coral.to1DStrArray(rs);
+                DefaultComboBoxModel model = new DefaultComboBoxModel(box);
+                comboBox.setModel(model);
+        comboBox.addActionListener(e -> comboBoxActionPerformed(e));
         JTextComponent editor = (JTextComponent) comboBox.getEditor().getEditorComponent();
         editor.setDocument(new complete(comboBox));
-        comboBox.setSelectedIndex(0);
-        comboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxActionPerformed(evt);
-            }
-        });
+        //comboBox.setSelectedIndex(0);
 
+        //---- button ----
         button.setText("GO!");
-        button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonActionPerformed(evt);
-            }
-        });
+        button.addActionListener(e -> buttonActionPerformed(e));
 
-        tableView0.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {},
-            new String [] {}
-        ));
-        jScrollPane0.setViewportView(tableView0);
+        //======== jScrollPane0 ========
+        {
+            jScrollPane0.setViewportView(tableView0);
+        }
 
+        //---- cuLabel ----
         cuLabel.setText("Credit Union Table");
 
+        //---- laserLabel ----
         laserLabel.setText("Laser Table");
 
-        tableView1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {},
-            new String [] {}
-        ));
-        jScrollPane1.setViewportView(tableView1);
+        //======== jScrollPane1 ========
+        {
+            jScrollPane1.setViewportView(tableView1);
+        }
 
+        //---- thermalLabel ----
         thermalLabel.setText("Thermal Table");
 
-        tableView2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {},
-            new String [] {}
-        ));
-        jScrollPane2.setViewportView(tableView2);
+        //======== jScrollPane2 ========
+        {
+            jScrollPane2.setViewportView(tableView2);
+        }
 
+        //---- licenseLabel ----
         licenseLabel.setText("License Table");
 
-        tableView3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {},
-            new String [] {}
-        ));
-        jScrollPane3.setViewportView(tableView3);
+        //======== jScrollPane3 ========
+        {
+            jScrollPane3.setViewportView(tableView3);
+        }
 
+        //---- newButton ----
         newButton.setText("NEW CREDIT UNION");
-        newButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newButtonActionPerformed(evt);
-            }
-        });
+        newButton.addActionListener(e -> newButtonActionPerformed(e));
 
+        //---- saveButton ----
         saveButton.setText("SAVE CHANGES");
-        saveButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveButtonActionPerformed(evt);
-            }
-        });
+        saveButton.addActionListener(e -> saveButtonActionPerformed(e));
 
-        invalidInputText.setForeground(new java.awt.Color(255, 0, 0));
+        //---- invalidInputText ----
+        invalidInputText.setForeground(Color.red);
 
+        //---- editButton ----
         editButton.setText("EDIT CREDIT UNION");
-        editButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editButtonActionPerformed(evt);
-            }
-        });
+        editButton.addActionListener(e -> editButtonActionPerformed(e));
 
-        changeEventButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                changeEventButtonActionPerformed(evt);
-            }
-        });
+        //---- changeEventButton ----
+        changeEventButton.addActionListener(e -> changeEventButtonActionPerformed(e));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button)
-                    .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(invalidInputText)
-                    .addComponent(editButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(newButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(saveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(licenseLabel)
-                    .addComponent(thermalLabel)
-                    .addComponent(laserLabel)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cuLabel)
-                        .addGap(368, 368, 368)
-                        .addComponent(changeEventButton))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1148, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jScrollPane3)
-                    .addComponent(jScrollPane0))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cuLabel)
-                            .addComponent(titleLabel)))
-                    .addComponent(changeEventButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        GroupLayout contentPaneLayout = new GroupLayout(contentPane);
+        contentPane.setLayout(contentPaneLayout);
+        contentPaneLayout.setHorizontalGroup(
+            contentPaneLayout.createParallelGroup()
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                        .addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
                         .addComponent(button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(invalidInputText))
-                    .addComponent(jScrollPane0, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(laserLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(thermalLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(licenseLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(newButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(editButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(saveButton))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(titleLabel, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(invalidInputText)
+                        .addComponent(editButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(newButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(saveButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGap(18, 18, 18)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                        .addComponent(licenseLabel)
+                        .addComponent(thermalLabel)
+                        .addComponent(laserLabel)
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addComponent(cuLabel)
+                            .addGap(368, 368, 368)
+                            .addComponent(changeEventButton))
+                        .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 1148, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
+                        .addComponent(jScrollPane3)
+                        .addComponent(jScrollPane0))
+                    .addContainerGap(24, Short.MAX_VALUE))
         );
-
+        contentPaneLayout.setVerticalGroup(
+            contentPaneLayout.createParallelGroup()
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(cuLabel)
+                                .addComponent(titleLabel)))
+                        .addComponent(changeEventButton))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(button)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(invalidInputText))
+                        .addComponent(jScrollPane0, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(laserLabel)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(thermalLabel)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(licenseLabel)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addComponent(newButton)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(editButton)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(saveButton))
+                        .addComponent(jScrollPane3, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
         pack();
+        setLocationRelativeTo(getOwner());
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
@@ -385,25 +374,26 @@ public class DISPLAYMODEL extends javax.swing.JFrame {
     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton button;
-    private javax.swing.JButton changeEventButton;
-    private javax.swing.JComboBox<String> comboBox;
-    private javax.swing.JLabel cuLabel;
-    private javax.swing.JButton editButton;
-    private javax.swing.JLabel invalidInputText;
-    private javax.swing.JScrollPane jScrollPane0;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JLabel laserLabel;
-    private javax.swing.JLabel licenseLabel;
-    private javax.swing.JButton newButton;
-    private javax.swing.JButton saveButton;
-    private javax.swing.JTable tableView0;
-    private javax.swing.JTable tableView1;
-    private javax.swing.JTable tableView2;
-    private javax.swing.JTable tableView3;
-    private javax.swing.JLabel thermalLabel;
-    private javax.swing.JLabel titleLabel;
+    // Generated using JFormDesigner Evaluation license - Nisarg Patel
+    private JLabel titleLabel;
+    private JComboBox<String> comboBox;
+    private JButton button;
+    private JScrollPane jScrollPane0;
+    private JTable tableView0;
+    private JLabel cuLabel;
+    private JLabel laserLabel;
+    private JScrollPane jScrollPane1;
+    private JTable tableView1;
+    private JLabel thermalLabel;
+    private JScrollPane jScrollPane2;
+    private JTable tableView2;
+    private JLabel licenseLabel;
+    private JScrollPane jScrollPane3;
+    private JTable tableView3;
+    private JButton newButton;
+    private JButton saveButton;
+    private JLabel invalidInputText;
+    private JButton editButton;
+    private JButton changeEventButton;
     // End of variables declaration//GEN-END:variables
 }

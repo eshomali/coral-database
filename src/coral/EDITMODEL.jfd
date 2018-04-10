@@ -1,0 +1,118 @@
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par t {seq {space :::p, par l {seq l {par l {comp jLabel1:::p::p, comp jLabel2::l:p::p, comp jLabel4::t:p::p}, space s:::p, par t {seq t {comp cuNameTXT:::::x, space s:::p, comp cuNameRad:::p::p}, seq t {par l {comp cityTXT::l:p:177:p, comp dataProcessorTXT::l:p:177:p}, space :p:20:p, par t {comp jLabel5:::p::p, comp jLabel3:::p::p}, space u:::p, par t {seq {comp us_stateTXT:::p:49:p, space :p:43:p, comp jLabel7:::p::p, space :::p, comp contactInfoTXT:::p:177:p}, seq {comp inactiveTXT:::p:49:p, space :p:43:p, comp jLabel6:::p::p, space :::p, comp contactNameTXT:::p:177:p}}, space s:::p, par t {seq t {comp jLabel9:::p::p, space :::p, comp eReciptBranchesTXT:::p:177:p}, seq t {comp jLabel8:::p::p, space :::p, comp eReciptsTXT:::p:177:p}}, space :0:0:x}}}, seq l {space :p:33:p, par l {seq {par t {comp jScrollPane2:::::x, comp jScrollPane1:::::x}, space u:::p, comp saveBTN:::p::p}, seq {par l {comp jLabel10:::p::p, comp jLabel11::l:p::p}, space :0:0:x}}}, seq t {space :0:0:x, comp jLabel12:::p::p, space :::p, comp SMS_NumberTXT:::p:177:p}}, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :::p, par l {comp cuNameRad::l:p::p, par b {comp jLabel1::b:p::p, comp cuNameTXT::b:p::p}}, space s:::p, par l {seq {par b {comp dataProcessorTXT::b:p::p, comp inactiveTXT::b:p::p, comp jLabel2::b:p::p, comp jLabel3::b:p::p, comp jLabel6::b:p::p, comp contactNameTXT::b:p::p}, space s:::p, par b {comp cityTXT::b:p::p, comp jLabel4::b:p::p, comp us_stateTXT::b:p::p, comp jLabel5::b:p::p, comp jLabel7::b:p::p, comp contactInfoTXT::b:p::p}}, seq {par b {comp jLabel8::b:p::p, comp eReciptsTXT::b:p::p}, space s:::p, par b {comp jLabel9::b:p::p, comp eReciptBranchesTXT::b:p::p}}}, space s:::p, par b {comp jLabel12::b:p::p, comp SMS_NumberTXT::b:p::p}, space ::107:x, comp jLabel10:::p::p, space :::p, comp jScrollPane2:::p:128:p, space :p:4:p, comp jLabel11:::p::p, space :::p, par l {comp saveBTN::t:p::p, comp jScrollPane1::t:p:128:p}, space :::p}}"
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 2
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel1"
+				"text": "cuName"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "saveBTN"
+				"text": "Save"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "saveBTNActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JRadioButton" ) {
+				name: "cuNameRad"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "cuNameTXT"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "dataProcessorTXT"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "inactiveTXT"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel2"
+				"text": "dataProc"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel3"
+				"text": "Inactive?"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "cityTXT"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel4"
+				"text": "City"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "us_stateTXT"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel5"
+				"text": "State"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "jScrollPane1"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "techNotes2TXT"
+					"columns": 20
+					"rows": 5
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "jScrollPane2"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "genNotesTXT"
+					"columns": 20
+					"rows": 5
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "contactNameTXT"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel6"
+				"text": "ContName"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "contactInfoTXT"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel7"
+				"text": "ContInfo"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel8"
+				"text": "eRec"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "eReciptsTXT"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel9"
+				"text": "eRec Branch"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "eReciptBranchesTXT"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel10"
+				"text": "Gen Notes"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel11"
+				"text": "Tech Notes"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel12"
+				"text": "SMS"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "SMS_NumberTXT"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+	}
+}

@@ -1,0 +1,98 @@
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :::p, par l:::p {comp comboBox::l:p:300:p, comp button::l:p::p, comp titleLabel::l:p:127:p, comp invalidInputText::l:p::p, comp editButton::l:::x, comp newButton::l:::x, comp saveButton::l:::x}, space s:::p, par l:::p {comp licenseLabel::l:p::p, comp thermalLabel::l:p::p, comp laserLabel::l:p::p, seq l {comp cuLabel:::p::p, space :p:368:p, comp changeEventButton:::p::p}, comp jScrollPane2::l::1148:x, comp jScrollPane1::l:::x, comp jScrollPane3::l:::x, comp jScrollPane0::l:::x}, space ::24:x}}"
+			"$verticalGroup": "par l {seq l {par l {seq {space :p:10:p, par b {comp cuLabel::b:p::p, comp titleLabel::b:p::p}}, comp changeEventButton::l:p::p}, space :::p, par l {seq {comp comboBox:::p::p, space :::p, comp button:::p::p, space :::p, comp invalidInputText:::p::p}, comp jScrollPane0:::p:110:p}, space :::p, comp laserLabel:::p::p, space :::p, comp jScrollPane1:::p:110:p, space :::p, comp thermalLabel:::p::p, space :::p, comp jScrollPane2:::p:110:p, space :::p, comp licenseLabel:::p::p, space :::p, par t {seq {comp newButton:::p::p, space :::p, comp editButton:::p::p, space :::p, comp saveButton:::p::p}, comp jScrollPane3:::p:110:p}, space :::x}}"
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 3
+			"resizable": false
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "titleLabel"
+				"text": "Select a credit union:"
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "comboBox"
+				auxiliary() {
+					"JavaCodeGenerator.postInitCode": "JTextComponent editor = (JTextComponent) comboBox.getEditor().getEditorComponent();\neditor.setDocument(new complete(comboBox));\ncomboBox.setSelectedIndex(0);"
+					"JavaCodeGenerator.preInitCode": "Statement st = Connect.go();\n        ResultSet rs = null;\n        try{\n            rs = st.executeQuery(\"SELECT cuName FROM credit_union\");\n        } catch (Exception e) { System.out.println(e); }\n        String[] box = Coral.to1DStrArray(rs);\n        DefaultComboBoxModel model = new DefaultComboBoxModel(box);\n        comboBox.setModel(model);"
+					"JavaCodeGenerator.typeParameters": "String"
+				}
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "comboBoxActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button"
+				"text": "GO!"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "buttonActionPerformed", true ) )
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "jScrollPane0"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "tableView0"
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "cuLabel"
+				"text": "Credit Union Table"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "laserLabel"
+				"text": "Laser Table"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "jScrollPane1"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "tableView1"
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "thermalLabel"
+				"text": "Thermal Table"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "jScrollPane2"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "tableView2"
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "licenseLabel"
+				"text": "License Table"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "jScrollPane3"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "tableView3"
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "newButton"
+				"text": "NEW CREDIT UNION"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "newButtonActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "saveButton"
+				"text": "SAVE CHANGES"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "saveButtonActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "invalidInputText"
+				"foreground": new java.awt.Color( 255, 0, 0, 255 )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "editButton"
+				"text": "EDIT CREDIT UNION"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "editButtonActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "changeEventButton"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "changeEventButtonActionPerformed", true ) )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+	}
+}

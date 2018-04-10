@@ -1,0 +1,140 @@
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq t {space :::p, par t {seq {space :0:0:x, comp cuRadio:::p::p, space :::p, comp fcuRadio:::p::p, space :::p, comp otherRadio:::p::p}, comp cuNameField::t:::x, comp dataComboBox::l:::x, seq t {comp errorLabel:::::x, space :::p, comp goButton:::p::p}, seq l {par l {comp title::l:p::p, comp label1::l:p::p, comp label2::l:p::p, seq l {par l {comp cityField::l:p:215:p, comp label3::l:p::p}, space s:::p, par l {comp label4:::p::p, comp stateBox:::p:87:p}}}, space :0:98:x}}, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :::p, comp title:::p::p, space s:::p, comp label1:::p::p, space :::p, comp cuNameField:::p::p, space :::p, par b {comp cuRadio::b:p::p, comp fcuRadio::b:p::p, comp otherRadio::b:p::p}, space :::p, comp label2:::p::p, space :::p, comp dataComboBox:::p::p, space :::p, par b {comp label3::b:p::p, comp label4::b:p::p}, space :::p, par b {comp cityField::b:p::p, comp stateBox::b:p::p}, space ::9:x, par b {comp goButton::b:p::p, comp errorLabel::b:p::p}, space :::p}}"
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 2
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "title"
+				"text": "Fill out the boxes below for the new credit union."
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "Credit Union Name"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "Data Processor"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label3"
+				"text": "City"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": "State/Country"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "cuNameField"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "cuNameFieldActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "cityField"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "goButton"
+				"text": "GO!"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "goButtonActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "stateBox"
+				"model": new javax.swing.DefaultComboBoxModel {
+					selectedItem: "AL"
+					addElement( "AL" )
+					addElement( "AK" )
+					addElement( "AZ" )
+					addElement( "AR" )
+					addElement( "CA" )
+					addElement( "CO" )
+					addElement( "CT" )
+					addElement( "DE" )
+					addElement( "FL" )
+					addElement( "GA" )
+					addElement( "HI" )
+					addElement( "IA" )
+					addElement( "ID" )
+					addElement( "IL" )
+					addElement( "IN" )
+					addElement( "KS" )
+					addElement( "KY" )
+					addElement( "LA" )
+					addElement( "ME" )
+					addElement( "MD" )
+					addElement( "MA" )
+					addElement( "MI" )
+					addElement( "MN" )
+					addElement( "MS" )
+					addElement( "MO" )
+					addElement( "MT" )
+					addElement( "NC" )
+					addElement( "ND" )
+					addElement( "NE" )
+					addElement( "NH" )
+					addElement( "NJ" )
+					addElement( "NM" )
+					addElement( "NV" )
+					addElement( "NY" )
+					addElement( "OH" )
+					addElement( "OK" )
+					addElement( "OR" )
+					addElement( "PA" )
+					addElement( "RI" )
+					addElement( "SC" )
+					addElement( "SD" )
+					addElement( "TN" )
+					addElement( "TX" )
+					addElement( "UT" )
+					addElement( "VT" )
+					addElement( "VA" )
+					addElement( "WA" )
+					addElement( "WV" )
+					addElement( "WI" )
+					addElement( "WY" )
+				}
+				auxiliary() {
+					"JavaCodeGenerator.typeParameters": "String"
+				}
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "dataComboBox"
+				"editable": true
+				auxiliary() {
+					"JavaCodeGenerator.preInitCode": "Statement st = Connect.go();\nResultSet rs = null;\ntry{\n    rs = st.executeQuery(\"SELECT DISTINCT dataProcessor FROM credit_union\");\n} catch (Exception e) { System.out.println(e); }\nString[] box = Coral.to1DStrArray(rs);\nDefaultComboBoxModel model = new DefaultComboBoxModel(box);"
+					"JavaCodeGenerator.typeParameters": "String"
+				}
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "errorLabel"
+				"foreground": new java.awt.Color( 255, 0, 0, 255 )
+				"horizontalAlignment": 4
+			} )
+			add( new FormComponent( "javax.swing.JRadioButton" ) {
+				name: "cuRadio"
+				"$buttonGroup": new FormReference( "buttonGroup" )
+				"text": "CU"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "cuRadioActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JRadioButton" ) {
+				name: "fcuRadio"
+				"$buttonGroup": new FormReference( "buttonGroup" )
+				"text": "FCU"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "fcuRadioActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JRadioButton" ) {
+				name: "otherRadio"
+				"$buttonGroup": new FormReference( "buttonGroup" )
+				"text": "Non-banking"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+		add( new FormNonVisual( "javax.swing.ButtonGroup" ) {
+			name: "buttonGroup"
+		} )
+	}
+}
